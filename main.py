@@ -4,7 +4,7 @@ from memory import Memory
 from data.fonctions_excel import *
 
 import time
-
+import textwrap
 pygame.init()
 
 
@@ -18,12 +18,35 @@ ecran = pygame.display.set_mode((largeurEcran, hauteurEcran), pygame.SCALED | py
 pygame.display.set_caption("Îles aux fractions Memory")
 
 
-
-
 #Images
 imageAccueil = pygame.image.load("images/fond_ecran.jpg")  
 imageAccueil = pygame.transform.scale(imageAccueil, (largeurEcran, hauteurEcran))
+imagefond1 = pygame.image.load("images/fond1.png")  
+imagefond1 = pygame.transform.scale(imagefond1, (largeurEcran, hauteurEcran))
+imagefond2 = pygame.image.load("images/fond2.png")  
+imagefond2 = pygame.transform.scale(imagefond2, (largeurEcran, hauteurEcran))
+imagefond3 = pygame.image.load("images/fond3.png")  
+imagefond3 = pygame.transform.scale(imagefond3, (largeurEcran, hauteurEcran))
+imagefond4 = pygame.image.load("images/fond4.png")  
+imagefond4 = pygame.transform.scale(imagefond4, (largeurEcran, hauteurEcran))
+imagefond5 = pygame.image.load("images/fond5.png")  
+imagefond5 = pygame.transform.scale(imagefond5, (largeurEcran, hauteurEcran))
+imagefond6 = pygame.image.load("images/fond6.png")  
+imagefond6 = pygame.transform.scale(imagefond6, (largeurEcran, hauteurEcran))
+imageboutonRouge = pygame.image.load("images/boutonRouge.png")  
+imageboutonRouge= pygame.transform.scale(imageboutonRouge, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
+imageboutonVert = pygame.image.load("images/boutonVert.png")  
+imageboutonVert= pygame.transform.scale(imageboutonVert, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
+imageboutonJaune = pygame.image.load("images/boutonJaune.png") 
+imageboutonJaune= pygame.transform.scale(imageboutonJaune, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
+imageCorde = pygame.image.load("images/cadre_corde.png") 
+imageCorde= pygame.transform.scale(imageCorde, (largeurEcran/4.3, hauteurEcran/3))
+imagePanneau = pygame.image.load("images/indication_panneau.png") 
+imagePanneau= pygame.transform.scale(imagePanneau, (largeurEcran/1.7, hauteurEcran/2))
+imagePanneauBloque = pygame.image.load("images/panneau_bloque.png") 
+imagePanneauBloque= pygame.transform.scale(imagePanneauBloque, (largeurEcran/1.7, hauteurEcran/2))
 
+imagefond=[imagefond1,imagefond2,imagefond3,imagefond4,imagefond5,imagefond6]
 
 
 
@@ -41,13 +64,9 @@ policeTitre = pygame.font.SysFont('avenir', hauteurEcran // 10)
 policeBase = pygame.font.SysFont('avenir', hauteurEcran // 20)
 
 
-
 # Variables globales
 pieces = 23  # Argent initial du joueur
-niveaux = [True, False, False]   
-
-
-
+niveaux = [True, True, False, False, False]   
 
 # Fonction pour dessiner un bouton
 def bouton_texte(texte, x, y, largeur, hauteur, couleur, couleurTexte, radius=200):
@@ -58,13 +77,13 @@ def bouton_texte(texte, x, y, largeur, hauteur, couleur, couleurTexte, radius=20
     return pygame.Rect(x, y, largeur, hauteur)
 
 
-
-
-
-
-
-
-
+# Charger l'image du bouton
+def bouton_image ( image , x , y , largeur , hauteur ):
+    image = pygame.image.load (image)
+    image = pygame.transform.scale(image,(largeur,hauteur))
+    zoneCliquable = image.get_rect(topleft=(x,y))
+    ecran.blit(image,zoneCliquable.topleft)
+    return zoneCliquable
 
 # Page d'accueil
 def menu():
@@ -111,7 +130,7 @@ def menu():
                 if boutonJouer.collidepoint(event.pos):
                     pygame.mixer.music.stop()
                     pygame.time.wait(100) 
-                    page_niveaux()  # Mène à la sélection des niveaux
+                    page_niveaux2()  # Mène à la sélection des niveaux
                 if boutonReglages.collidepoint(event.pos):
                     pygame.mixer.music.stop()
                     reglages()
@@ -121,10 +140,6 @@ def menu():
                     sys.exit()
 
         pygame.display.flip()
-
-
-
-
 
 # Page des réglages
 def reglages():
@@ -177,49 +192,75 @@ def reglages():
 
         pygame.display.flip()
 
-# Menu de sélection des niveaux (va beaucoup changer donc pas à regarder)
-def page_niveaux():
-    global pieces
+#def boutons principaux page de niveaux
+x_bouton=[largeurEcran/3.2,largeurEcran/2.83,largeurEcran*2/3.87,largeurEcran*2/3.35,largeurEcran*2.68/3.8]
+y_bouton=[hauteurEcran/5.8,hauteurEcran/2.15,hauteurEcran*2/3.6, hauteurEcran/4.75,hauteurEcran*2/3.2]
 
+boutons_niveaux = [bouton_image("images/boutonRouge.png", x_bouton[0], y_bouton[0], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2)),
+                    bouton_image("images/boutonRouge.png", x_bouton[1], y_bouton[1], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2)),
+                    bouton_image("images/boutonRouge.png", x_bouton[2], y_bouton[2], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2)),
+                    bouton_image("images/boutonRouge.png", x_bouton[3], y_bouton[3], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2)),
+                    bouton_image("images/boutonRouge.png", x_bouton[4], y_bouton[4], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2))
+                    ]
+
+afficher_panneau = False
+afficher_panneau_bloque = False
+
+#Page de l'ile avec les différents niveaux
+def page_niveaux2():
     while True:
-        ecran.fill(blanc)
 
-        titre = policeTitre.render("Sélection des niveaux", True, noir)
-        ecran.blit(titre, (largeurEcran // 2 - titre.get_width() // 2, hauteurEcran // 10))
+        global afficher_panneau, afficher_panneau_bloque
 
-        # Afficher l'argent
-        money_label = policeBase.render(f" {pieces} pièces d'or", True, jaune)
-        ecran.blit(money_label, (largeurEcran - money_label.get_width() - 20, 20))
-
-        # Dessiner les niveaux
-        largeurBouton, hauteurBouton = largeurEcran // 3, hauteurEcran // 8
+        #afficher le fond d'écran
+        premier_false_trouve1 = False
+        if niveaux[4]:
+            ecran.blit(imagefond[5], (0,0))
+        else:
+            for i in range(len(niveaux)):
+                if not premier_false_trouve1:
+                    if not niveaux[i]:
+                        premier_false_trouve1 = True
+                        ecran.blit(imagefond[i], (0,0))
+        
+        #afficher les boutons rouges, jaunes ou verts
+        premier_false_trouve2 = False
         for i in range(len(niveaux)):
-            x = largeurEcran // 2 - (largeurBouton //2)
-            y = hauteurEcran // 5 + (i % 5) * (hauteurBouton + hauteurEcran // 20)
-            if niveaux[i]:  # Niveau débloqué
-                color = vert
-                level_text = f"Niveau {i + 1}"
-            else:  # Niveau verrouillé
-                color = gris
-                level_text = f"Verrouillé ({10 * (i + 1)} pièces)"
+            if niveaux[i]:  
+                boutons_niveaux[i] = bouton_image("images/boutonVert.png", x_bouton[i], y_bouton[i], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2))
+                if pygame.mouse.get_pressed()[0] and boutons_niveaux[i].collidepoint(pygame.mouse.get_pos()):
+                    niveau_memory(1)
+            else:
+                if not premier_false_trouve2:
+                    boutons_niveaux[i] = bouton_image("images/boutonJaune.png", x_bouton[i], y_bouton[i], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2))
+                    if pygame.mouse.get_pressed()[0] and boutons_niveaux[i].collidepoint(pygame.mouse.get_pos()):
+                        niveau_memory(1)
+                    premier_false_trouve2 = True
+                else:
+                    boutons_niveaux[i] = bouton_image("images/boutonRouge.png", x_bouton[i], y_bouton[i], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2))
+                    if pygame.mouse.get_pressed()[0] and boutons_niveaux[i].collidepoint(pygame.mouse.get_pos()):
+                        afficher_panneau_bloque = True
 
-            level_button = bouton_texte(level_text, x, y, largeurBouton, hauteurBouton, color, blanc)
 
-            # Débloquer ou jouer
-            if pygame.mouse.get_pressed()[0] and level_button.collidepoint(pygame.mouse.get_pos()):
-                if niveaux[i]:
-                    niveau_memory(i + 1)
-                elif pieces >= 10 * (i + 1):  # Débloquer le niveau
-                    pieces -= 10 * (i + 1)
-                    niveaux[i] = True
+        # Bouton indication
+        bouton_indication=bouton_image("images/indications.png", 0, 0, largeurEcran / (6 * 2), hauteurEcran / (4 * 2))
+        if afficher_panneau:
+            ecran.blit(imagePanneau, (largeurEcran / 4.8, hauteurEcran / 4))
 
+        # Affichage du panneau bloqué + bouton croix
+        if afficher_panneau_bloque:
+            ecran.blit(imagePanneauBloque, (largeurEcran / 4.8, hauteurEcran / 4))
+            bouton_croix = bouton_image("images/croix.png", largeurEcran / 4.8 + imagePanneauBloque.get_width()*0.92, hauteurEcran / 4 - 40,largeurEcran / (6 * 2), hauteurEcran / (3.7 * 2))
+        
         # Bouton Retour au menu
-        back_button = bouton_texte("Retour au menu", 
-                                  100, 
-                                  hauteurEcran * 4 // 5, 
+        largeurBouton, hauteurBouton = largeurEcran // 6, hauteurEcran // 16
+        back_button = bouton_texte("Menu", 
+                                  largeurEcran/30, 
+                                  hauteurEcran * 4.5 // 5, 
                                   largeurBouton//2, 
                                   hauteurBouton, 
-                                  bleue, blanc)
+                                  noir, blanc)
+        pygame.display.flip()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -230,7 +271,10 @@ def page_niveaux():
                     pygame.mixer.music.load("son/musique_accueil.mp3")  
                     pygame.mixer.music.play(-1)
                     return
-
+                if bouton_indication.collidepoint(event.pos):
+                    afficher_panneau = not afficher_panneau
+                if afficher_panneau_bloque and bouton_croix.collidepoint(event.pos):
+                    afficher_panneau_bloque = False
         pygame.display.flip()
 
 

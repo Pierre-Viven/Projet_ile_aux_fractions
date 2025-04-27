@@ -28,7 +28,7 @@ matriceNiveaux = [
     [[("1sur1.png","chocolat1.png"),("1sur6.png","chocolat1sur6.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("5sur6.png","gateau5sur6.png"),("2sur3.png","gateau2sur3.png"),("1sur2.png","gateau1sur2.png"),("2sur6.png","gateau1sur3.png")],[("5sur6.png","chocolat5sur6.png"),("3sur6.png","chocolat1sur2.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("1.png","Gateau_entier.png"),("1sur3.png","gateau1sur3.png"),("4sur6.png","gateau2sur3.png"),("1sur6.png","gateau1sur6.png")],[("1sur3.png","chocolat1sur3.png"),("4sur6.png","chocolat2sur3.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("6sur6.png","Gateau_entier.png"),("5sur6.png","gateau5sur6.png"),("2sur4.png","gateau1sur2.png"),("1sur6.png","gateau1sur6.png")]],
     [[("1sur3.png","chocolat1sur3.png"),("7sur12.png","chocolat7sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur6.png","gateau1sur6.png"),("5sur6.png","gateau5sur6.png"),("3sur3.png","Gateau_entier.png"),("1sur12.png","oeuf1sur12.png"),("3sur6.png","oeuf6sur12.png"),("8sur12.png","oeuf8sur12.png"),("1sur4.png","oeuf3sur12.png")],[("5sur12.png","chocolat5sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur4.png","chocolat1sur4.png"),("1sur6.png","chocolat1sur6.png"),("5sur6.png","gateau5sur6.png"),("1sur2.png","gateau1sur2.png"),("2sur3.png","gateau2sur3.png"),("7sur12.png","oeuf7sur12.png"),("1sur12.png","oeuf1sur12.png"),("1.png","oeuf1sur1.png")],[("12sur12.png","chocolat1.png"),("9sur12.png","chocolat3sur4.png"),("2sur6.png","chocolat1sur3.png"),("2sur12.png","gateau1sur6.png"),("4sur6.png","gateau2sur3.png"),("1sur2.png","gateau1sur2.png"),("10sur12.png","oeuf10sur12.png"),("11sur12.png","oeuf11sur12.png"),("5sur12.png","oeuf5sur12.png"),("1sur4.png","oeuf3sur12.png")]],
     [[("1sur3.png","chocolat1sur3.png"),("5sur12.png","chocolat5sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur12.png","chocolat1sur12.png"),("1sur2.png","gateau1sur2.png"),("2sur3.png","gateau2sur3.png"),("1sur6.png","gateau1sur6.png"),("5sur6.png","gateau5sur6.png"),("1sur4.png","oeuf3sur12.png"),("11sur12.png","oeuf11sur12.png"),("7sur12.png","oeuf7sur12.png"),("1.png","oeuf1sur1.png")],[("1sur12.png","chocolat1sur12.png"),("1sur6.png","chocolat1sur6.png"),("4sur6.png","chocolat2sur3.png"),("3sur4.png","chocolat3sur4.png"),("2sur4.png","gateau1sur2.png"),("2sur6.png","gateau1sur3.png"),("1sur1.png","Gateau_entier.png"),("7sur12.png","oeuf7sur12.png"),("1sur4.png","oeuf3sur12.png"),("11sur12.png","oeuf11sur12.png"),("5sur6.png","oeuf10sur12.png"),("5sur12.png","oeuf5sur12.png")],[("5sur12.png","chocolat5sur12.png"),("11sur12.png","chocolat11sur12.png"),("6sur6.png","chocolat1.png"),("7sur12.png","chocolat7sur12.png"),("5sur6.png","gateau5sur6.png"),("1sur3.png","gateau1sur3.png"),("1sur6.png","gateau1sur6.png"),("1sur4.png","oeuf3sur12.png"),("1sur2.png","oeuf6sur12.png"),("3sur4.png","oeuf9sur12.png"),("2sur3.png","oeuf8sur12.png"),("1sur12.png","oeuf1sur12.png")]],
-    [[("chocolat1sur6.png","gateau1sur6.png"),("chocolat1sur2.png","gateau1sur2.png"),("chocolat5sur6.png","gateau5sur6.png"),("gateau1sur3.png","oeuf4sur12.png"),("oeuf8sur12.png","gateau2sur3.png"),("oeuf1sur1.png","Gateau_entier.png"),("oeuf1sur12.png","chocolat1sur12.png"),("oeuf5sur12.png","chocolat5sur12.png"),("chocolat5sur12.png","oeuf5sur12.png"),("chocolat11sur12.png","oeuf11sur12.png"),("chocolat1sur4.png","oeuf3sur12.png"),("chocolat3sur4.png","oeuf9sur12.png")]]
+    [[("chocolat1sur6.png","gateau1sur6.png"),("chocolat1sur2.png","gateau1sur2.png"),("chocolat5sur6.png","gateau5sur6.png"),("gateau1sur3.png","oeuf4sur12.png"),("oeuf8sur12.png","gateau2sur3.png"),("oeuf1sur1.png","Gateau_entier.png"),("oeuf1sur12.png","chocolat1sur12.png"),("oeuf7sur12.png","chocolat7sur12.png"),("chocolat5sur12.png","oeuf5sur12.png"),("chocolat11sur12.png","oeuf11sur12.png"),("chocolat1sur4.png","oeuf3sur12.png"),("chocolat3sur4.png","oeuf9sur12.png")]]
 ]
 
 
@@ -59,8 +59,21 @@ imagePanneau = pygame.image.load("images/indication_panneau.png")
 imagePanneau= pygame.transform.scale(imagePanneau, (largeurEcran/1.7, hauteurEcran/2))
 imagePanneauBloque = pygame.image.load("images/panneau_bloque.png") 
 imagePanneauBloque= pygame.transform.scale(imagePanneauBloque, (largeurEcran/1.7, hauteurEcran/2))
+bravo1 = pygame.image.load("images/bravo1.png")  
+bravo1 = pygame.transform.scale(bravo1, (largeurEcran/1.7, hauteurEcran/2))
+bravo2 = pygame.image.load("images/bravo2.png")  
+bravo2 = pygame.transform.scale(bravo2, (largeurEcran/1.7, hauteurEcran/2))
+bravo3 = pygame.image.load("images/bravo3.png")  
+bravo3 = pygame.transform.scale(bravo3, (largeurEcran/1.7, hauteurEcran/2))
+bravo4 = pygame.image.load("images/bravo4.png")  
+bravo4 = pygame.transform.scale(bravo4, (largeurEcran/1.7, hauteurEcran/2))
+bravo5 = pygame.image.load("images/bravo5.png")  
+bravo5 = pygame.transform.scale(bravo5, (largeurEcran/1.7, hauteurEcran/2))
+bravo6 = pygame.image.load("images/bravo6.png")  
+bravo6 = pygame.transform.scale(bravo6, (largeurEcran/1.7, hauteurEcran/2))
 
 imagefond=[imagefond1,imagefond2,imagefond3,imagefond4,imagefond5,imagefond6]
+imageBravo=[bravo1,bravo2,bravo3,bravo4,bravo5,bravo6]
 
 imageFondMemory = pygame.image.load("images/fond_memory.jpg")  
 imageFondMemory = pygame.transform.scale(imageFondMemory, (largeurEcran, hauteurEcran))
@@ -308,11 +321,11 @@ def page_niveaux():
         bouton_indication=bouton_image("images/indications.png", 0, 0, largeurEcran / (6 * 2), hauteurEcran / (4 * 2))
         if afficher_panneau:
             ecran.blit(imagePanneau, (largeurEcran / 4.8, hauteurEcran / 4))
-
+            bouton_croix1 = bouton_image("images/croix.png", largeurEcran / 4.8 + imagePanneauBloque.get_width()*0.92, hauteurEcran / 4 - 40,largeurEcran / (6 * 2), hauteurEcran / (3.7 * 2))
         # Affichage du panneau bloqué + bouton croix
         if afficher_panneau_bloque:
             ecran.blit(imagePanneauBloque, (largeurEcran / 4.8, hauteurEcran / 4))
-            bouton_croix = bouton_image("images/croix.png", largeurEcran / 4.8 + imagePanneauBloque.get_width()*0.92, hauteurEcran / 4 - 40,largeurEcran / (6 * 2), hauteurEcran / (3.7 * 2))
+            bouton_croix2 = bouton_image("images/croix.png", largeurEcran / 4.8 + imagePanneauBloque.get_width()*0.92, hauteurEcran / 4 - 40,largeurEcran / (6 * 2), hauteurEcran / (3.7 * 2))
         
         # Bouton Retour au menu
         largeurBouton, hauteurBouton = largeurEcran // 6, hauteurEcran // 16
@@ -333,9 +346,11 @@ def page_niveaux():
                     pygame.mixer.music.load("son/musique_accueil.mp3")  
                     pygame.mixer.music.play(-1)
                     return
-                if bouton_indication.collidepoint(event.pos):
-                    afficher_panneau = not afficher_panneau
-                if afficher_panneau_bloque and bouton_croix.collidepoint(event.pos):
+                if afficher_panneau and bouton_croix1.collidepoint(event.pos):
+                    afficher_panneau = False
+                if bouton_indication.collidepoint(event.pos) and afficher_panneau==False:
+                    afficher_panneau = True
+                if afficher_panneau_bloque and bouton_croix2.collidepoint(event.pos):
                     afficher_panneau_bloque = False
         pygame.display.flip()
 
@@ -449,9 +464,10 @@ def niveau_memory(niveau):
                 musique=False
             texte_victoire = policeBase.render("Bravo !", True, vert)
             ecran.blit(texte_victoire, (largeurEcran*(5/6) - texte_victoire.get_width() // 2, hauteurEcran // 4))
-
-            bouton_rejouer = bouton_texte("SUIVANT", largeurEcran*(5/6)- largeurBouton // 2, hauteurEcran // 2,
+            ecran.blit(imageFondMemory, (0, 0))
+            bouton_rejouer = bouton_texte("SUIVANT", largeurEcran*(1/2)- largeurBouton // 2, 5*hauteurEcran // 7,
                                         largeurBouton, hauteurBouton, vert, blanc)
+            ecran.blit(imageBravo[niveau], (largeurEcran / 4.8, hauteurEcran / 6))
             if pygame.mouse.get_pressed()[0] and bouton_rejouer.collidepoint(pygame.mouse.get_pos()):
                     niveaux[niveau]=True
                     return

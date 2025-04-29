@@ -1,12 +1,12 @@
 import pygame
 import sys
 from data.fonctions_excel import *
+from data.fonctions_mails import *
 import random
-
-
-
+import datetime
 
 pygame.init()
+
 
 # Infos ecran
 infoEcran = pygame.display.Info()
@@ -88,7 +88,7 @@ dosCarte = pygame.transform.scale(dosCarte, ((largeurEcran*(2/3)-60) // 6,(large
 blanc = (255, 255, 255)
 noir = (0, 0, 0)
 gris = (100, 100, 100)
-bleue = (0, 122, 204)
+bleu = (0, 122, 204)
 vert = (0, 204, 0)
 rouge = (204, 0, 0)
 jaune = (184,134,11)
@@ -163,13 +163,17 @@ def animation_victoire(ecran):
 
 # Page d'accueil
 def menu():
+    #Musique d'accueil
     pygame.mixer.init() 
     pygame.mixer.music.load("son/musique_accueil.mp3")  
     pygame.mixer.music.play(-1)
-   
+
+    Creer_Tableur() #Créer un nouveau tableur pour collecter les données des parties
+
     while True:
         ecran.blit(imageAccueil, (0,0))
 
+        #Titre
         titre = policeTitre.render("Îles aux Fractions", True, noir)
         ecran.blit(titre, (largeurEcran // 2 - titre.get_width() // 2, hauteurEcran // 8))
 
@@ -182,7 +186,7 @@ def menu():
                                    hauteurEcran // 3, 
                                    largeurBouton, 
                                    hauteurBouton, 
-                                   bleue, blanc)
+                                   bleu, blanc)
         boutonReglages = bouton_texte("Réglages", 
                                        largeurEcran // 2 - largeurBouton // 2, 
                                        hauteurEcran // 2, 
@@ -197,56 +201,63 @@ def menu():
                                   rouge, blanc)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT:  #Ferme la fenêtre avec la croix rouge
                 pygame.mixer.music.stop()
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:  #gère les actions des boutons
                 if boutonJouer.collidepoint(event.pos):
                     pygame.mixer.music.stop()
-                    pygame.time.wait(100) 
                     page_niveaux()  # Mène à la sélection des niveaux
                 if boutonReglages.collidepoint(event.pos):
                     pygame.mixer.music.stop()
-                    reglages()
+                    reglages() # Mène aux réglages
                 if boutonQuitter.collidepoint(event.pos):
                     pygame.mixer.music.stop()
-                    pygame.quit()
+                    pygame.quit()  # Ferme l'application
                     sys.exit()
 
-        pygame.display.flip()
+        pygame.display.flip()  #Actualise (important de la garder dans la boucle pour mettre à jour en continue l'écran et ses changements)
 
 
 
-# Page des réglages  ( a refaire)
+# Page des réglages
 def reglages():
+    envoie="non"
     while True:
         ecran.fill(blanc)
 
         titre = policeTitre.render("Réglages", True, noir)
         ecran.blit(titre, (largeurEcran // 2 - titre.get_width() // 2, hauteurEcran // 8))
 
-        button_width, button_height = largeurEcran // 4, hauteurEcran // 10
+        largeurBouton, hauteurBouton = largeurEcran // 4, hauteurEcran // 10
+
         boutonRetour = bouton_texte("Retour au menu", 
-                                  largeurEcran // 2 - button_width // 2, 
+                                  largeurEcran // 2 - largeurBouton // 2, 
                                   hauteurEcran * 2 // 3, 
-                                  button_width, 
-                                  button_height, 
+                                  largeurBouton, 
+                                  hauteurBouton, 
                                   gris, blanc)
         
-        boutonCreerTableur = bouton_texte("test_fichier", 
-                                  largeurEcran // 2 - button_width // 2, 
-                                  hauteurEcran  // 2, 
-                                  button_width, 
-                                  button_height, 
-                                  gris, blanc)
+        if envoie=="non": #gère l'envoie pour envoyer les données une seule fois
+            boutonEnvoyerData = bouton_texte("Récuperer les données", 
+                                    largeurEcran // 2 - largeurBouton // 2, 
+                                    hauteurEcran  // 3, 
+                                    largeurBouton, 
+                                    hauteurBouton, 
+                                    bleu, blanc)
+        elif envoie =="en cours":
+            pygame.display.flip()  #enlever le bouton en actualisant
+            envoie=EnvoyerMail()
+
+        elif envoie == "envoyé":
+            texte = policeTitre.render("Data envoyée !", True, vert)
+            ecran.blit(texte, (largeurEcran // 2 - texte.get_width() // 2, hauteurEcran // 2))
+        else:
+            texte = policeTitre.render(envoie, True, rouge)
+            ecran.blit(texte, (largeurEcran // 2 - texte.get_width() // 2, hauteurEcran // 2))
         
-        boutonRemplirTableur = bouton_texte("test_fichierremplir", 
-                                  largeurEcran // 2 - button_width // 2, 
-                                  hauteurEcran  // 3, 
-                                  button_width, 
-                                  button_height, 
-                                  gris, blanc)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -257,11 +268,10 @@ def reglages():
                     pygame.mixer.music.load("son/musique_accueil.mp3")  
                     pygame.mixer.music.play(-1)
                     return
-                if boutonCreerTableur.collidepoint(event.pos):
-                    Creer_Tableur("test01")
-                if boutonRemplirTableur.collidepoint(event.pos):
-                    Remplir_Tableur("test01",1,"00001",1000,35,10)
-                    print("ok")
+                if boutonEnvoyerData.collidepoint(event.pos):
+                    envoie="en cours"
+                    
+
 
 
                     
@@ -288,29 +298,29 @@ def page_niveaux():
 
     while True:
         #afficher le fond d'écran
-        premier_false_trouve1 = False
+        niveauEnCours = False
         if niveaux[4]:
             ecran.blit(imagefond[5], (0,0))
         else:
             for i in range(len(niveaux)):
-                if not premier_false_trouve1:
+                if not niveauEnCours:
                     if not niveaux[i]:
-                        premier_false_trouve1 = True
+                        niveauEnCours = True
                         ecran.blit(imagefond[i], (0,0))
         
         #afficher les boutons rouges, jaunes ou verts
-        premier_false_trouve2 = False
+        niveauEnCoursBouton = False
         for i in range(len(niveaux)):
             if niveaux[i]:  
                 boutons_niveaux[i] = bouton_image("images/boutonVert.png", x_bouton[i], y_bouton[i], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2))
                 if pygame.mouse.get_pressed()[0] and boutons_niveaux[i].collidepoint(pygame.mouse.get_pos()):
                     niveau_memory(i)
             else:
-                if not premier_false_trouve2:
+                if not niveauEnCoursBouton:
                     boutons_niveaux[i] = bouton_image("images/boutonJaune.png", x_bouton[i], y_bouton[i], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2))
                     if pygame.mouse.get_pressed()[0] and boutons_niveaux[i].collidepoint(pygame.mouse.get_pos()):
                         niveau_memory(i)
-                    premier_false_trouve2 = True
+                    niveauEnCoursBouton  = True
                 else:
                     boutons_niveaux[i] = bouton_image("images/boutonRouge.png", x_bouton[i], y_bouton[i], largeurEcran / (12.4 * 2), hauteurEcran / (7 * 2))
                     if pygame.mouse.get_pressed()[0] and boutons_niveaux[i].collidepoint(pygame.mouse.get_pos()):
@@ -329,7 +339,7 @@ def page_niveaux():
         
         # Bouton Retour au menu
         largeurBouton, hauteurBouton = largeurEcran // 6, hauteurEcran // 16
-        back_button = bouton_texte("Menu", 
+        boutonRetour = bouton_texte("Menu", 
                                   largeurEcran/30, 
                                   hauteurEcran * 4.5 // 5, 
                                   largeurBouton//2, 
@@ -342,7 +352,7 @@ def page_niveaux():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if back_button.collidepoint(event.pos):
+                if boutonRetour.collidepoint(event.pos):
                     pygame.mixer.music.load("son/musique_accueil.mp3")  
                     pygame.mixer.music.play(-1)
                     return
@@ -357,43 +367,56 @@ def page_niveaux():
 
 
 def niveau_memory(niveau):
-    tirageJeuCarte = random.randint(0, len(matriceNiveaux[niveau])-1)
-    cartes_data = matriceNiveaux[niveau][tirageJeuCarte]
-    nb_cartes = len(cartes_data)
+    pygame.mixer.music.load("son/clap.wav") 
 
     coteCarte = (largeurEcran*(2/3)-60) // 6
 
-    pygame.mixer.music.load("son/clap.wav") 
+    tirageJeuCarte = random.randint(0, len(matriceNiveaux[niveau])-1)
+    jeu_cartes = matriceNiveaux[niveau][tirageJeuCarte]
 
     paires_trouvees = 0
-    total_paires = len(cartes_data)
+    nombreTentative = 0
+
+    debutChrono = pygame.time.get_ticks()
+
 
     # Création de la liste des paires (on les duplique et mélange)
-    paires = [(i, j) for i in range(nb_cartes) for j in (0, 1)]
+    paires = [(i, j) for i in range(len(jeu_cartes)) for j in (0, 1)]
     random.shuffle(paires)
 
     nbCartesLigne = 4 if len(paires) <= 16 else 5
     
 
     etat_cartes = ['cachee'] * len(paires)  # "cachee", "retournee", "trouvee"
-    cartes_retournees = []  # [(index, (i, j))]
+    cartes_retournees = []  #stock les cartes faces visibles temporairement
 
-    cartes_retournees = []
     temps_retour = 0
     en_attente = False
 
-    musique=True
+    victoire=True
  
 
     while True:
+        #Affichages
         ecran.blit(imageFondMemory, (0, 0))
-        texte_paires = policeBase.render(f"Paires trouvées : {paires_trouvees}/{total_paires}", True, noir)
+        
+        texte_paires = policeBase.render(f"Paires trouvées : {paires_trouvees}/{len(jeu_cartes)}", True, noir)
         ecran.blit(texte_paires, (largeurEcran*(210/300), hauteurEcran*(1/32)))
+
+        texte_tentatives = policeBase.render(f"Tentatives : {nombreTentative}", True, noir)
+        ecran.blit(texte_tentatives, (largeurEcran*(210/300), hauteurEcran*(6/32)))
+
+        chrono = pygame.time.get_ticks() - debutChrono
+        secondes = chrono // 1000
+        minutes = secondes // 60
+        secondesModulo = secondes % 60
+        texte_temps = policeBase.render(f"{minutes:02}:{secondesModulo:02}", True, noir)
+        ecran.blit(texte_temps, (largeurEcran*(210/300), hauteurEcran*(12/32)))  
 
         # Affichage des boutons
         largeurBouton, hauteurBouton = largeurEcran // 5.5, hauteurEcran // 10
 
-        if musique:
+        if victoire:
             boutonRetour = bouton_texte("Retour", (largeurEcran // 6)*5 - largeurBouton // 2,
                                     hauteurEcran * 4 // 5, largeurBouton, hauteurBouton, gris, blanc)
 
@@ -401,13 +424,13 @@ def niveau_memory(niveau):
         listeZonesCliquables = []
 
         for index, (i, j) in enumerate(paires):
+            #Placement des cartes
             x = (index % nbCartesLigne) * coteCarte + (index % nbCartesLigne + 1) * largeurEcran // 50
             y = (index // nbCartesLigne) * coteCarte + (index // nbCartesLigne + 1) * hauteurEcran // 80
 
-            etat = etat_cartes[index]
-
-            if etat in ['retournee', 'trouvee']:
-                img_path = "images/" + cartes_data[i][j]
+            #Si la carte est retournee ou trouvee on l'affiche sinon une zone cliquable avec le dos de la carte
+            if etat_cartes[index] in ['retournee', 'trouvee']:
+                img_path = "images/" + jeu_cartes[i][j]
                 img = pygame.image.load(img_path)
                 img = pygame.transform.scale(img, (int(coteCarte), int(coteCarte)))
                 ecran.blit(img, (x, y))
@@ -424,26 +447,27 @@ def niveau_memory(niveau):
             if event.type == pygame.MOUSEBUTTONDOWN:
 
                 if boutonRetour.collidepoint(event.pos):
+                    Remplir_Tableur(secondes, nombreTentative, niveau+1, "non")
                     return
 
-                for zone, idx in listeZonesCliquables:
+                for zone, idx in listeZonesCliquables:  #si on clique parmis les cartes cachés on la révèle
                     if zone.collidepoint(event.pos):
                         if etat_cartes[idx] == 'cachee' and len(cartes_retournees) < 2 and not en_attente:
                             etat_cartes[idx] = 'retournee'
                             cartes_retournees.append((idx, paires[idx]))
 
 
-        # Si deux cartes retournées, on vérifie
-        # Si 2 cartes retournées mais on attend le délai
+        # Si deux cartes retournées, on met en attente le temps de montrer les cartes
         if len(cartes_retournees) == 2 and not en_attente:
             temps_retour = pygame.time.get_ticks()
             en_attente = True
 
-        # Si on a attendu suffisamment (ex: 800 ms), on peut comparer les cartes
-        if en_attente and pygame.time.get_ticks() - temps_retour > 800:
-            idx1, (i1, j1) = cartes_retournees[0]
-            idx2, (i2, j2) = cartes_retournees[1]
+        # Une fois l'attente fini on compare les cartes
+        if en_attente and pygame.time.get_ticks() - temps_retour > 600:
+            idx1, (i1,j1) = cartes_retournees[0]
+            idx2, (i2,j2) = cartes_retournees[1]
 
+            nombreTentative+=1
             
             if i1 == i2:
                 etat_cartes[idx1] = 'trouvee'
@@ -457,30 +481,18 @@ def niveau_memory(niveau):
             en_attente = False
 
         #Instructions de victoire
-        if paires_trouvees == total_paires:
-            if musique:
+        if paires_trouvees == len(jeu_cartes):
+            if victoire:
+                Remplir_Tableur(secondes, nombreTentative, niveau+1, "oui")
                 pygame.mixer.music.play(1)  
                 animation_victoire(ecran) 
-                musique=False
-            texte_victoire = policeBase.render("Bravo !", True, vert)
-            ecran.blit(texte_victoire, (largeurEcran*(5/6) - texte_victoire.get_width() // 2, hauteurEcran // 4))
+                victoire=False
             ecran.blit(imageFondMemory, (0, 0))
             bouton_rejouer = bouton_texte("SUIVANT", largeurEcran*(1/2)- largeurBouton // 2, 5*hauteurEcran // 7,
                                         largeurBouton, hauteurBouton, vert, blanc)
             ecran.blit(imageBravo[niveau], (largeurEcran / 4.8, hauteurEcran / 6))
             if pygame.mouse.get_pressed()[0] and bouton_rejouer.collidepoint(pygame.mouse.get_pos()):
                     niveaux[niveau]=True
-                    return
-
-
-
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if boutonRetour.collidepoint(event.pos):
                     return
 
         pygame.display.flip()

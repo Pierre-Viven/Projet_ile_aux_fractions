@@ -1,10 +1,11 @@
 from openpyxl import load_workbook as Charger_Tableur
 from openpyxl import Workbook as Nouveau_Tableur
+import socket
+import os
 
-
-def Remplir_Tableur(nom_Fichier, version, iD, temps, tentatives, erreurs):
+def Remplir_Tableur(temps, tentatives, niveau, succes):
     # Charger le fichier Excel
-    tableur = Charger_Tableur(nom_Fichier+".xlsx")
+    tableur = Charger_Tableur("data.xlsx")
 
     # Sélectionner une feuille
     feuille = tableur["F1"]
@@ -18,20 +19,23 @@ def Remplir_Tableur(nom_Fichier, version, iD, temps, tentatives, erreurs):
     
 
     #Remplissage de la ligne
-    feuille["A"+str(ligne)].value = version
-    feuille["B"+str(ligne)].value = iD
+    feuille["A"+str(ligne)].value = 1  #Si modification du jeu  à changer !!
+    feuille["B"+str(ligne)].value = socket.gethostbyname(socket.gethostname())
     feuille["C"+str(ligne)].value = temps
     feuille["D"+str(ligne)].value = tentatives
-    feuille["E"+str(ligne)].value = erreurs
+    feuille["E"+str(ligne)].value = niveau
+    feuille["F"+str(ligne)].value = succes
 
 
     # Sauvegarder les modifications
-    tableur.save(nom_Fichier+".xlsx")
+    tableur.save("data.xlsx")
 
 
 
 
-def Creer_Tableur(nom_Fichier):
+def Creer_Tableur():
+    if os.path.exists("data.xlsx"):
+        os.remove("data.xlsx")
     # Créer un nouveau classeur
     tableur = Nouveau_Tableur()
 
@@ -44,9 +48,10 @@ def Creer_Tableur(nom_Fichier):
     feuille["B1"] = "ID"
     feuille["C1"] = "Temps"
     feuille["D1"] = "Tentatives"
-    feuille["E1"] = "Erreurs"
+    feuille["E1"] = "Niveau"
+    feuille["F1"] = "Succès"
 
 
 
     # Enregistrer le fichier
-    tableur.save(nom_Fichier+".xlsx")
+    tableur.save("data.xlsx")

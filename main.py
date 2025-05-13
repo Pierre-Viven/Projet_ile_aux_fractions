@@ -3,7 +3,7 @@ import sys
 from data.fonctions_excel import *
 from data.fonctions_mails import *
 import random
-import datetime
+
 
 pygame.init()
 
@@ -24,51 +24,90 @@ pygame.display.set_caption("Îles aux fractions Edition MEMORY")
 
 #Création des jeux de memorys par niveaux et en associant un nombre de paires en fonction du niveau.
 matriceNiveaux = [
-    [[("1.png","chocolat1.png"),("1sur2.png","chocolat1sur2.png"),("1sur3.png","chocolat1sur3.png"),("1sur4.png","chocolat1sur4.png"),("2sur3.png","chocolat2sur3.png"),("3sur4.png","chocolat3sur4.png")]],
-    [[("1sur1.png","chocolat1.png"),("1sur6.png","chocolat1sur6.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("5sur6.png","gateau5sur6.png"),("2sur3.png","gateau2sur3.png"),("1sur2.png","gateau1sur2.png"),("2sur6.png","gateau1sur3.png")],[("5sur6.png","chocolat5sur6.png"),("3sur6.png","chocolat1sur2.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("1.png","Gateau_entier.png"),("1sur3.png","gateau1sur3.png"),("4sur6.png","gateau2sur3.png"),("1sur6.png","gateau1sur6.png")],[("1sur3.png","chocolat1sur3.png"),("4sur6.png","chocolat2sur3.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("6sur6.png","Gateau_entier.png"),("5sur6.png","gateau5sur6.png"),("2sur4.png","gateau1sur2.png"),("1sur6.png","gateau1sur6.png")]],
-    [[("1sur3.png","chocolat1sur3.png"),("7sur12.png","chocolat7sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur6.png","gateau1sur6.png"),("5sur6.png","gateau5sur6.png"),("3sur3.png","Gateau_entier.png"),("1sur12.png","oeuf1sur12.png"),("3sur6.png","oeuf6sur12.png"),("8sur12.png","oeuf8sur12.png"),("1sur4.png","oeuf3sur12.png")],[("5sur12.png","chocolat5sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur4.png","chocolat1sur4.png"),("1sur6.png","chocolat1sur6.png"),("5sur6.png","gateau5sur6.png"),("1sur2.png","gateau1sur2.png"),("2sur3.png","gateau2sur3.png"),("7sur12.png","oeuf7sur12.png"),("1sur12.png","oeuf1sur12.png"),("1.png","oeuf1sur1.png")],[("12sur12.png","chocolat1.png"),("9sur12.png","chocolat3sur4.png"),("2sur6.png","chocolat1sur3.png"),("2sur12.png","gateau1sur6.png"),("4sur6.png","gateau2sur3.png"),("1sur2.png","gateau1sur2.png"),("10sur12.png","oeuf10sur12.png"),("11sur12.png","oeuf11sur12.png"),("5sur12.png","oeuf5sur12.png"),("1sur4.png","oeuf3sur12.png")]],
-    [[("1sur3.png","chocolat1sur3.png"),("5sur12.png","chocolat5sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur12.png","chocolat1sur12.png"),("1sur2.png","gateau1sur2.png"),("2sur3.png","gateau2sur3.png"),("1sur6.png","gateau1sur6.png"),("5sur6.png","gateau5sur6.png"),("1sur4.png","oeuf3sur12.png"),("11sur12.png","oeuf11sur12.png"),("7sur12.png","oeuf7sur12.png"),("1.png","oeuf1sur1.png")],[("1sur12.png","chocolat1sur12.png"),("1sur6.png","chocolat1sur6.png"),("4sur6.png","chocolat2sur3.png"),("3sur4.png","chocolat3sur4.png"),("2sur4.png","gateau1sur2.png"),("2sur6.png","gateau1sur3.png"),("1sur1.png","Gateau_entier.png"),("7sur12.png","oeuf7sur12.png"),("1sur4.png","oeuf3sur12.png"),("11sur12.png","oeuf11sur12.png"),("5sur6.png","oeuf10sur12.png"),("5sur12.png","oeuf5sur12.png")],[("5sur12.png","chocolat5sur12.png"),("11sur12.png","chocolat11sur12.png"),("6sur6.png","chocolat1.png"),("7sur12.png","chocolat7sur12.png"),("5sur6.png","gateau5sur6.png"),("1sur3.png","gateau1sur3.png"),("1sur6.png","gateau1sur6.png"),("1sur4.png","oeuf3sur12.png"),("1sur2.png","oeuf6sur12.png"),("3sur4.png","oeuf9sur12.png"),("2sur3.png","oeuf8sur12.png"),("1sur12.png","oeuf1sur12.png")]],
-    [[("chocolat1sur6.png","gateau1sur6.png"),("chocolat1sur2.png","gateau1sur2.png"),("chocolat5sur6.png","gateau5sur6.png"),("gateau1sur3.png","oeuf4sur12.png"),("oeuf8sur12.png","gateau2sur3.png"),("oeuf1sur1.png","Gateau_entier.png"),("oeuf1sur12.png","chocolat1sur12.png"),("oeuf7sur12.png","chocolat7sur12.png"),("chocolat5sur12.png","oeuf5sur12.png"),("chocolat11sur12.png","oeuf11sur12.png"),("chocolat1sur4.png","oeuf3sur12.png"),("chocolat3sur4.png","oeuf9sur12.png")]]
+    #Niveau 1
+    [
+        [("1.png","chocolat1.png"),("1sur2.png","chocolat1sur2.png"),("1sur3.png","chocolat1sur3.png"),("1sur4.png","chocolat1sur4.png"),("2sur3.png","chocolat2sur3.png"),("3sur4.png","chocolat3sur4.png")]
+        ],
+    #Niveau 2
+    [
+        [("1sur1.png","chocolat1.png"),("1sur6.png","chocolat1sur6.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("5sur6.png","gateau5sur6.png"),("2sur3.png","gateau2sur3.png"),("1sur2.png","gateau1sur2.png"),("2sur6.png","gateau1sur3.png")],
+     [("5sur6.png","chocolat5sur6.png"),("3sur6.png","chocolat1sur2.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("1.png","Gateau_entier.png"),("1sur3.png","gateau1sur3.png"),("4sur6.png","gateau2sur3.png"),("1sur6.png","gateau1sur6.png")],
+     [("1sur3.png","chocolat1sur3.png"),("4sur6.png","chocolat2sur3.png"),("1sur4.png","chocolat1sur4.png"),("3sur4.png","chocolat3sur4.png"),("6sur6.png","Gateau_entier.png"),("5sur6.png","gateau5sur6.png"),("2sur4.png","gateau1sur2.png"),("1sur6.png","gateau1sur6.png")]
+     ],
+    #Niveau 3
+    [
+        [("1sur3.png","chocolat1sur3.png"),("7sur12.png","chocolat7sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur6.png","gateau1sur6.png"),("5sur6.png","gateau5sur6.png"),("3sur3.png","Gateau_entier.png"),("1sur12.png","oeuf1sur12.png"),("3sur6.png","oeuf6sur12.png"),("8sur12.png","oeuf8sur12.png"),("1sur4.png","oeuf3sur12.png")],
+        [("5sur12.png","chocolat5sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur4.png","chocolat1sur4.png"),("1sur6.png","chocolat1sur6.png"),("5sur6.png","gateau5sur6.png"),("1sur2.png","gateau1sur2.png"),("2sur3.png","gateau2sur3.png"),("7sur12.png","oeuf7sur12.png"),("1sur12.png","oeuf1sur12.png"),("1.png","oeuf1sur1.png")],
+        [("12sur12.png","chocolat1.png"),("9sur12.png","chocolat3sur4.png"),("2sur6.png","chocolat1sur3.png"),("2sur12.png","gateau1sur6.png"),("4sur6.png","gateau2sur3.png"),("1sur2.png","gateau1sur2.png"),("10sur12.png","oeuf10sur12.png"),("11sur12.png","oeuf11sur12.png"),("5sur12.png","oeuf5sur12.png"),("1sur4.png","oeuf3sur12.png")]
+        ],
+    #Niveau 4
+    [
+        [("1sur3.png","chocolat1sur3.png"),("5sur12.png","chocolat5sur12.png"),("3sur4.png","chocolat3sur4.png"),("1sur12.png","chocolat1sur12.png"),("1sur2.png","gateau1sur2.png"),("2sur3.png","gateau2sur3.png"),("1sur6.png","gateau1sur6.png"),("5sur6.png","gateau5sur6.png"),("1sur4.png","oeuf3sur12.png"),("11sur12.png","oeuf11sur12.png"),("7sur12.png","oeuf7sur12.png"),("1.png","oeuf1sur1.png")],
+        [("1sur12.png","chocolat1sur12.png"),("1sur6.png","chocolat1sur6.png"),("4sur6.png","chocolat2sur3.png"),("3sur4.png","chocolat3sur4.png"),("2sur4.png","gateau1sur2.png"),("2sur6.png","gateau1sur3.png"),("1sur1.png","Gateau_entier.png"),("7sur12.png","oeuf7sur12.png"),("1sur4.png","oeuf3sur12.png"),("11sur12.png","oeuf11sur12.png"),("5sur6.png","oeuf10sur12.png"),("5sur12.png","oeuf5sur12.png")],
+        [("5sur12.png","chocolat5sur12.png"),("11sur12.png","chocolat11sur12.png"),("6sur6.png","chocolat1.png"),("7sur12.png","chocolat7sur12.png"),("5sur6.png","gateau5sur6.png"),("1sur3.png","gateau1sur3.png"),("1sur6.png","gateau1sur6.png"),("1sur4.png","oeuf3sur12.png"),("1sur2.png","oeuf6sur12.png"),("3sur4.png","oeuf9sur12.png"),("2sur3.png","oeuf8sur12.png"),("1sur12.png","oeuf1sur12.png")]
+        ],
+    #Niveau 5
+    [
+        [("chocolat1sur6.png","gateau1sur6.png"),("chocolat1sur2.png","gateau1sur2.png"),("chocolat5sur6.png","gateau5sur6.png"),("gateau1sur3.png","oeuf4sur12.png"),("oeuf8sur12.png","gateau2sur3.png"),("oeuf1sur1.png","Gateau_entier.png"),("oeuf1sur12.png","chocolat1sur12.png"),("oeuf7sur12.png","chocolat7sur12.png"),("chocolat5sur12.png","oeuf5sur12.png"),("chocolat11sur12.png","oeuf11sur12.png"),("chocolat1sur4.png","oeuf3sur12.png"),("chocolat3sur4.png","oeuf9sur12.png")]
+        ]
 ]
 
 
 #Images
 imageAccueil = pygame.image.load("images/fond_ecran.jpg")  
 imageAccueil = pygame.transform.scale(imageAccueil, (largeurEcran, hauteurEcran))
+
 imagefond1 = pygame.image.load("images/fond1.png")  
 imagefond1 = pygame.transform.scale(imagefond1, (largeurEcran, hauteurEcran))
+
 imagefond2 = pygame.image.load("images/fond2.png")  
 imagefond2 = pygame.transform.scale(imagefond2, (largeurEcran, hauteurEcran))
+
 imagefond3 = pygame.image.load("images/fond3.png")  
 imagefond3 = pygame.transform.scale(imagefond3, (largeurEcran, hauteurEcran))
+
 imagefond4 = pygame.image.load("images/fond4.png")  
 imagefond4 = pygame.transform.scale(imagefond4, (largeurEcran, hauteurEcran))
+
 imagefond5 = pygame.image.load("images/fond5.png")  
 imagefond5 = pygame.transform.scale(imagefond5, (largeurEcran, hauteurEcran))
+
 imagefond6 = pygame.image.load("images/fond6.png")  
 imagefond6 = pygame.transform.scale(imagefond6, (largeurEcran, hauteurEcran))
+
 imageboutonRouge = pygame.image.load("images/boutonRouge.png")  
 imageboutonRouge= pygame.transform.scale(imageboutonRouge, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
+
 imageboutonVert = pygame.image.load("images/boutonVert.png")  
 imageboutonVert= pygame.transform.scale(imageboutonVert, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
+
 imageboutonJaune = pygame.image.load("images/boutonJaune.png") 
 imageboutonJaune= pygame.transform.scale(imageboutonJaune, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
+
 imageCorde = pygame.image.load("images/cadre_corde.png") 
 imageCorde= pygame.transform.scale(imageCorde, (largeurEcran/4.3, hauteurEcran/3))
+
 imagePanneau = pygame.image.load("images/indication_panneau.png") 
 imagePanneau= pygame.transform.scale(imagePanneau, (largeurEcran/1.7, hauteurEcran/2))
+
 imagePanneauBloque = pygame.image.load("images/panneau_bloque.png") 
 imagePanneauBloque= pygame.transform.scale(imagePanneauBloque, (largeurEcran/1.7, hauteurEcran/2))
+
 bravo1 = pygame.image.load("images/bravo1.png")  
 bravo1 = pygame.transform.scale(bravo1, (largeurEcran/1.7, hauteurEcran/2))
+
 bravo2 = pygame.image.load("images/bravo2.png")  
 bravo2 = pygame.transform.scale(bravo2, (largeurEcran/1.7, hauteurEcran/2))
+
 bravo3 = pygame.image.load("images/bravo3.png")  
 bravo3 = pygame.transform.scale(bravo3, (largeurEcran/1.7, hauteurEcran/2))
+
 bravo4 = pygame.image.load("images/bravo4.png")  
 bravo4 = pygame.transform.scale(bravo4, (largeurEcran/1.7, hauteurEcran/2))
+
 bravo5 = pygame.image.load("images/bravo5.png")  
 bravo5 = pygame.transform.scale(bravo5, (largeurEcran/1.7, hauteurEcran/2))
+
 bravo6 = pygame.image.load("images/bravo6.png")  
 bravo6 = pygame.transform.scale(bravo6, (largeurEcran/1.7, hauteurEcran/2))
 
@@ -93,7 +132,7 @@ vert = (0, 204, 0)
 rouge = (204, 0, 0)
 jaune = (184,134,11)
 
-# Police
+# Police (possibilité d'en rajouter et de changer leur taille à partir de hauteurEcran)
 policeTitre = pygame.font.SysFont('avenir', hauteurEcran // 10)
 policeBase = pygame.font.SysFont('avenir', hauteurEcran // 20)
 
@@ -123,8 +162,10 @@ def bouton_image ( image , x , y , largeur , hauteur ):
     return zoneCliquable
 
 
-def animation_victoire(ecran):
-    
+#Fonction qui affiche une animation quand on réussit un niveau (fonction trouvé sur Internet peut-être améliorée)
+def animation_victoire(ecran): 
+    pygame.mixer.music.load("son/clap.wav")
+    pygame.mixer.music.play(1) 
     # Dégradé de couleurs (du blanc au doré)
     couleurs = [(255, 255, 255), (255, 215, 0)]
     texte = "Victoire !"
@@ -367,10 +408,11 @@ def page_niveaux():
 
 
 def niveau_memory(niveau):
-    pygame.mixer.music.load("son/clap.wav") 
-
+     
+    #Taille des cartes en carré
     coteCarte = (largeurEcran*(2/3)-60) // 6
 
+    #Sélectionne un jeu parmis ceux disponibles
     tirageJeuCarte = random.randint(0, len(matriceNiveaux[niveau])-1)
     jeu_cartes = matriceNiveaux[niveau][tirageJeuCarte]
 

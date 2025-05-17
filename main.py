@@ -54,70 +54,70 @@ matriceNiveaux = [
 
 
 #Images
-imageAccueil = pygame.image.load("images/fond_ecran.jpg")  
+imageAccueil = pygame.image.load(chemin_exe("images/fond_ecran.jpg"))  
 imageAccueil = pygame.transform.scale(imageAccueil, (largeurEcran, hauteurEcran))
 
-imagefond1 = pygame.image.load("images/fond1.png")  
+imagefond1 = pygame.image.load(chemin_exe("images/fond1.png"))  
 imagefond1 = pygame.transform.scale(imagefond1, (largeurEcran, hauteurEcran))
 
-imagefond2 = pygame.image.load("images/fond2.png")  
+imagefond2 = pygame.image.load(chemin_exe("images/fond2.png"))  
 imagefond2 = pygame.transform.scale(imagefond2, (largeurEcran, hauteurEcran))
 
-imagefond3 = pygame.image.load("images/fond3.png")  
+imagefond3 = pygame.image.load(chemin_exe("images/fond3.png"))  
 imagefond3 = pygame.transform.scale(imagefond3, (largeurEcran, hauteurEcran))
 
-imagefond4 = pygame.image.load("images/fond4.png")  
+imagefond4 = pygame.image.load(chemin_exe("images/fond4.png"))  
 imagefond4 = pygame.transform.scale(imagefond4, (largeurEcran, hauteurEcran))
 
-imagefond5 = pygame.image.load("images/fond5.png")  
+imagefond5 = pygame.image.load(chemin_exe("images/fond5.png"))  
 imagefond5 = pygame.transform.scale(imagefond5, (largeurEcran, hauteurEcran))
 
-imagefond6 = pygame.image.load("images/fond6.png")  
+imagefond6 = pygame.image.load(chemin_exe("images/fond6.png"))  
 imagefond6 = pygame.transform.scale(imagefond6, (largeurEcran, hauteurEcran))
 
-imageboutonRouge = pygame.image.load("images/boutonRouge.png")  
+imageboutonRouge = pygame.image.load(chemin_exe("images/boutonRouge.png"))  
 imageboutonRouge= pygame.transform.scale(imageboutonRouge, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
 
-imageboutonVert = pygame.image.load("images/boutonVert.png")  
+imageboutonVert = pygame.image.load(chemin_exe("images/boutonVert.png"))  
 imageboutonVert= pygame.transform.scale(imageboutonVert, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
 
-imageboutonJaune = pygame.image.load("images/boutonJaune.png") 
+imageboutonJaune = pygame.image.load(chemin_exe("images/boutonJaune.png")) 
 imageboutonJaune= pygame.transform.scale(imageboutonJaune, (largeurEcran/(12.4*2), hauteurEcran/(7*2)))
 
-imageCorde = pygame.image.load("images/cadre_corde.png") 
+imageCorde = pygame.image.load(chemin_exe("images/cadre_corde.png")) 
 imageCorde= pygame.transform.scale(imageCorde, (largeurEcran/4.3, hauteurEcran/3))
 
-imagePanneau = pygame.image.load("images/indication_panneau.png") 
+imagePanneau = pygame.image.load(chemin_exe("images/indication_panneau.png")) 
 imagePanneau= pygame.transform.scale(imagePanneau, (largeurEcran/1.7, hauteurEcran/2))
 
-imagePanneauBloque = pygame.image.load("images/panneau_bloque.png") 
+imagePanneauBloque = pygame.image.load(chemin_exe("images/panneau_bloque.png")) 
 imagePanneauBloque= pygame.transform.scale(imagePanneauBloque, (largeurEcran/1.7, hauteurEcran/2))
 
-bravo1 = pygame.image.load("images/bravo1.png")  
+bravo1 = pygame.image.load(chemin_exe("images/bravo1.png"))  
 bravo1 = pygame.transform.scale(bravo1, (largeurEcran/1.7, hauteurEcran/2))
 
-bravo2 = pygame.image.load("images/bravo2.png")  
+bravo2 = pygame.image.load(chemin_exe("images/bravo2.png"))  
 bravo2 = pygame.transform.scale(bravo2, (largeurEcran/1.7, hauteurEcran/2))
 
-bravo3 = pygame.image.load("images/bravo3.png")  
+bravo3 = pygame.image.load(chemin_exe("images/bravo3.png"))  
 bravo3 = pygame.transform.scale(bravo3, (largeurEcran/1.7, hauteurEcran/2))
 
-bravo4 = pygame.image.load("images/bravo4.png")  
+bravo4 = pygame.image.load(chemin_exe("images/bravo4.png"))  
 bravo4 = pygame.transform.scale(bravo4, (largeurEcran/1.7, hauteurEcran/2))
 
-bravo5 = pygame.image.load("images/bravo5.png")  
+bravo5 = pygame.image.load(chemin_exe("images/bravo5.png"))  
 bravo5 = pygame.transform.scale(bravo5, (largeurEcran/1.7, hauteurEcran/2))
 
-bravo6 = pygame.image.load("images/bravo6.png")  
+bravo6 = pygame.image.load(chemin_exe("images/bravo6.png"))  
 bravo6 = pygame.transform.scale(bravo6, (largeurEcran/1.7, hauteurEcran/2))
 
 imagefond=[imagefond1,imagefond2,imagefond3,imagefond4,imagefond5,imagefond6]
 imageBravo=[bravo1,bravo2,bravo3,bravo4,bravo5,bravo6]
 
-imageFondMemory = pygame.image.load("images/fond_memory.jpg")  
+imageFondMemory = pygame.image.load(chemin_exe("images/fond_memory.jpg"))  
 imageFondMemory = pygame.transform.scale(imageFondMemory, (largeurEcran, hauteurEcran))
 
-dosCarte = pygame.image.load("images/dos.png")  
+dosCarte = pygame.image.load(chemin_exe("images/dos.png"))  
 dosCarte = pygame.transform.scale(dosCarte, ((largeurEcran*(2/3)-60) // 6,(largeurEcran*(2/3)-60) // 6))
 
 
@@ -155,7 +155,7 @@ def bouton_texte(texte, x, y, largeur, hauteur, couleur, couleurTexte, radius=20
 
 # Fonction pour dessiner un bouton avec une image
 def bouton_image ( image , x , y , largeur , hauteur ):
-    image = pygame.image.load (image)
+    image = pygame.image.load(chemin_exe(image))
     image = pygame.transform.scale(image,(largeur,hauteur))
     zoneCliquable = image.get_rect(topleft=(x,y))
     ecran.blit(image,zoneCliquable.topleft)
@@ -164,7 +164,7 @@ def bouton_image ( image , x , y , largeur , hauteur ):
 
 #Fonction qui affiche une animation quand on réussit un niveau (fonction trouvé sur Internet peut-être améliorée)
 def animation_victoire(ecran): 
-    pygame.mixer.music.load("son/clap.wav")
+    pygame.mixer.music.load(chemin_exe("son/clap.wav"))
     pygame.mixer.music.play(1) 
     # Dégradé de couleurs (du blanc au doré)
     couleurs = [(255, 255, 255), (255, 215, 0)]
@@ -206,7 +206,7 @@ def animation_victoire(ecran):
 def menu():
     #Musique d'accueil
     pygame.mixer.init() 
-    pygame.mixer.music.load("son/musique_accueil.mp3")  
+    pygame.mixer.music.load(chemin_exe("son/musique_accueil.mp3"))  
     pygame.mixer.music.play(-1)
 
     Creer_Tableur() #Créer un nouveau tableur pour collecter les données des parties
@@ -306,7 +306,7 @@ def reglages():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if boutonRetour.collidepoint(event.pos):
-                    pygame.mixer.music.load("son/musique_accueil.mp3")  
+                    pygame.mixer.music.load(chemin_exe("son/musique_accueil.mp3"))  
                     pygame.mixer.music.play(-1)
                     return
                 if boutonEnvoyerData.collidepoint(event.pos):
@@ -394,7 +394,7 @@ def page_niveaux():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if boutonRetour.collidepoint(event.pos):
-                    pygame.mixer.music.load("son/musique_accueil.mp3")  
+                    pygame.mixer.music.load(chemin_exe("son/musique_accueil.mp3"))  
                     pygame.mixer.music.play(-1)
                     return
                 if afficher_panneau and bouton_croix1.collidepoint(event.pos):
@@ -473,7 +473,7 @@ def niveau_memory(niveau):
             #Si la carte est retournee ou trouvee on l'affiche sinon une zone cliquable avec le dos de la carte
             if etat_cartes[index] in ['retournee', 'trouvee']:
                 img_path = "images/" + jeu_cartes[i][j]
-                img = pygame.image.load(img_path)
+                img = pygame.image.load(chemin_exe(img_path))
                 img = pygame.transform.scale(img, (int(coteCarte), int(coteCarte)))
                 ecran.blit(img, (x, y))
             else:

@@ -2,10 +2,23 @@ from openpyxl import load_workbook as Charger_Tableur
 from openpyxl import Workbook as Nouveau_Tableur
 import socket
 import os
+import sys
+
+
+def chemin_exe(chemin_relatif):
+    """Permet d'accéder aux fichiers même après compilation avec PyInstaller"""
+    try:
+        repertoire = sys._MEIPASS  # PyInstaller crée un répertoire temporaire
+    except Exception:
+        repertoire = os.path.abspath(".")
+    return os.path.join(repertoire, chemin_relatif)
+
+
 
 def Remplir_Tableur(temps, tentatives, niveau, succes):
     # Charger le fichier Excel
-    tableur = Charger_Tableur("data.xlsx")
+    chemin = chemin_exe("data.xlsx")
+    tableur = Charger_Tableur(chemin)
 
     # Sélectionner une feuille
     feuille = tableur["F1"]
@@ -28,14 +41,15 @@ def Remplir_Tableur(temps, tentatives, niveau, succes):
 
 
     # Sauvegarder les modifications
-    tableur.save("data.xlsx")
+    tableur.save(chemin)
 
 
 
 
 def Creer_Tableur():
-    if os.path.exists("data.xlsx"):
-        os.remove("data.xlsx")
+    chemin = chemin_exe("data.xlsx")
+    if os.path.exists(chemin):
+        os.remove(chemin)
     # Créer un nouveau classeur
     tableur = Nouveau_Tableur()
 
@@ -54,4 +68,4 @@ def Creer_Tableur():
 
 
     # Enregistrer le fichier
-    tableur.save("data.xlsx")
+    tableur.save(chemin)

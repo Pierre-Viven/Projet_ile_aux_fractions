@@ -6,10 +6,19 @@ from email.mime.base import MIMEBase
 from email import encoders
 import datetime
 import socket
+import os
+import sys
 
+def chemin_exe(chemin_relatif):
+    """Permet d'accéder aux fichiers même après compilation avec PyInstaller"""
+    try:
+        repertoire = sys._MEIPASS  # PyInstaller crée un répertoire temporaire
+    except Exception:
+        repertoire = os.path.abspath(".")
+    return os.path.join(repertoire, chemin_relatif)
 
 def EnvoyerMail():
-	json_file = open("data\config.json")   #données du fichier json : a changer selon l'adresse mail utilisée
+	json_file = open(chemin_exe("data\config.json"))   #données du fichier json : a changer selon l'adresse mail utilisée
 	gmail_cfg = json.load(json_file)
 
 
@@ -21,7 +30,7 @@ def EnvoyerMail():
 
 	msg.attach(MIMEText(message, "plain"))
 
-	fichier_a_attacher = "data.xlsx"
+	fichier_a_attacher = chemin_exe("data.xlsx")
 
 	with open(fichier_a_attacher, "rb") as attachment:
 				part = MIMEBase("application", "octet-stream")

@@ -11,4 +11,4 @@ Cette application enregistre automatiquement les données de toutes les tentativ
 
 Le jeu utilise la librairie Pygame pour générer les fenêtre et les évenement. Chaque page est crée à l'aide d'une fonction. LE code est globalement commenté encore une fois si besoin veuillez nous contacter. 
 
-Une version compilée et éxécutable du jeu existe pour permettre de lancer le jeu sur n'importe quel ordinateur de système d'exploitaion Windows. 
+Une version compilée et éxécutable du jeu existe pour permettre de lancer le jeu sur n'importe quel ordinateur de système d'exploitaion Windows. Cette version est dans le dossier dist.
